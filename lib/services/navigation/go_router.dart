@@ -18,6 +18,7 @@ final GlobalKey<NavigatorState> _rootNavigatorKey =
 GoRouter goRouter(final GoRouterRef ref) => GoRouter(
       navigatorKey: _rootNavigatorKey,
       initialLocation: '/a',
+      onException: (context, state, router) => router.go('/'),
       routes: <RouteBase>[
         StatefulShellRoute.indexedStack(
           builder: (
@@ -41,7 +42,9 @@ GoRouter goRouter(final GoRouterRef ref) => GoRouter(
               );
               return ShellView(
                 controller: ref.watch(provider.notifier),
-                model: ref.watch(provider),
+                model: ref.watch(provider).copyWith(
+                      selectedBottomTabIndex: navigationShell.currentIndex,
+                    ),
                 child: navigationShell,
               );
             },
@@ -168,5 +171,6 @@ GoRouter goRouter(final GoRouterRef ref) => GoRouter(
             ),
           ),
         ),
+        GoRoute(path: '/', redirect: (_, __) => '/a'),
       ],
     );
