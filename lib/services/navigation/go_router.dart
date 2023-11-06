@@ -162,7 +162,7 @@ GoRouter goRouter(final GoRouterRef ref) => GoRouter(
         ),
         GoRoute(
           path: '/outside',
-          // parentNavigatorKey: _rootNavigatorKey,
+          parentNavigatorKey: _rootNavigatorKey,
           builder: (BuildContext context, GoRouterState state) => Consumer(
             builder: (_, final WidgetRef ref, __) => DetailsScreen(
               label: 'Outside the shell',
